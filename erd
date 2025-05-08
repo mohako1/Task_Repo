@@ -1,0 +1,70 @@
+erDiagram
+    ADMIN {
+        int Admin_ID PK
+        string Name
+        string Password
+        string Role
+        string Email
+    }
+    
+    CLIENT {
+        int Client_ID PK
+        string Name
+        string Password
+        string phone
+        string Credit_Card
+    }
+    
+    ADDRESS {
+        string Residence_Address PK
+        string Business_Address PK
+        string billing_Address PK
+    }
+    
+    MOVIE {
+        int Movie_ID PK
+        string Name
+        string Type
+        float Price
+        string Lead_Actor
+        int Supplier_ID FK
+        int Year
+        string Age_Restriction
+    }
+    
+    SUPPLIER {
+        int Supplier_ID PK
+        string Name
+        string Contact_info
+    }
+    
+    RENTAL {
+        int Rental_ID PK
+        int Client_ID FK
+        date Rental_Date
+        date Return_Date
+        int Movie_ID FK
+    }
+    
+    RENTAL_DETAIL {
+        int Rental_ID FK
+        int Client_ID FK
+        date Rental_Date
+        float Price
+    }
+    
+    ADMIN ||--o{ ADMIN : "Add"
+    ADMIN ||--o{ SUPPLIER : "Add"
+    ADMIN ||--o{ MOVIE : "Add"
+    ADMIN }|--|| RENTAL_DETAIL : "Manage"
+    
+    CLIENT ||--|| ADDRESS : "Has"
+    CLIENT ||--o{ RENTAL_DETAIL : "Details"
+    
+    CLIENT }|--|{ MOVIE : "Enroll"
+    
+    SUPPLIER ||--o{ MOVIE : "Supplies"
+    
+    MOVIE }|--|{ RENTAL : "Tag"
+    
+    RENTAL_DETAIL }|--|{ MOVIE : "Rent"
